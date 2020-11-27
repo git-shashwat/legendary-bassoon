@@ -1,9 +1,22 @@
 "use strict";
-var logDetails = function (uid, item) {
-    console.log(item + " has a uid of " + uid);
+// example 1
+var greet;
+greet = function (name, greeting) {
+    console.log(name + " says " + greeting);
 };
-var greet = function (user) {
-    console.log(user.name + " says hello");
+// example 2
+var calc;
+calc = function (numOne, numTwo, action) {
+    if (action === "add")
+        return numOne + numTwo;
+    else
+        return numOne - numTwo;
 };
-logDetails(123, "coke");
-greet({ name: "suresh", uid: 234 });
+var logDetails;
+logDetails = function (ninja) {
+    console.log(ninja.name + " is " + ninja.age + " years old.");
+};
+var result = calc(24, 45, "add");
+console.log(result);
+greet("Ram", "Hey");
+logDetails({ name: "Sita", age: 45 });
