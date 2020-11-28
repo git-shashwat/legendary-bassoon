@@ -20,14 +20,13 @@ form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
 
   let doc: HasFormatter;
-  const t: string = tofrom.value;
-  const d: string = details.value;
-  const a: number = amount.valueAsNumber;
+  let values: [string, string, number];
+  values = [tofrom.value, details.value, amount.valueAsNumber];
   const h: string = type.value;
   if (h === "invoice") {
-    doc = new Invoice(t, d, a);
+    doc = new Invoice(...values);
   } else {
-    doc = new Payment(t, d, a);
+    doc = new Payment(...values);
   }
 
   list.render(doc, h, "end");
@@ -39,30 +38,16 @@ const addUID = <T extends HasProfile>(obj: T) => {
   return { ...obj, uid };
 };
 
-// ENUMS
-enum ResourceType {
-  BOOK,
-  AUTHOR,
-  FILM,
-  DIRECTOR,
-  PERSON,
-}
-interface Resource<T> {
-  uid: number;
-  resourceType: number;
-  data: T;
-}
+// tuples
 
-const docOne: Resource<object> = {
-  uid: 1,
-  resourceType: ResourceType.BOOK,
-  data: { title: "name of the wind" },
-};
+let arr = ["ryu", 25, true];
+arr[0] = false;
+arr[1] = "yoshi";
+arr = [30, false, "yoshi"];
 
-const docTwo: Resource<object> = {
-  uid: 10,
-  resourceType: ResourceType.PERSON,
-  data: { title: "luigi" },
-};
+let tup: [string, number, boolean] = ["ryu", 25, true];
+tup[0] = "ken";
+tup[1] = 30;
 
-console.log(docOne, docTwo);
+// let student: [string, number];
+// student = ["chun-li", 343423];

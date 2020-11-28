@@ -13,15 +13,14 @@ const list = new ListTemplate(ul);
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     let doc;
-    const t = tofrom.value;
-    const d = details.value;
-    const a = amount.valueAsNumber;
+    let values;
+    values = [tofrom.value, details.value, amount.valueAsNumber];
     const h = type.value;
     if (h === "invoice") {
-        doc = new Invoice(t, d, a);
+        doc = new Invoice(...values);
     }
     else {
-        doc = new Payment(t, d, a);
+        doc = new Payment(...values);
     }
     list.render(doc, h, "end");
 });
@@ -30,23 +29,13 @@ const addUID = (obj) => {
     let uid = Math.floor(Math.random() * 100);
     return Object.assign(Object.assign({}, obj), { uid });
 };
-// ENUMS
-var ResourceType;
-(function (ResourceType) {
-    ResourceType[ResourceType["BOOK"] = 0] = "BOOK";
-    ResourceType[ResourceType["AUTHOR"] = 1] = "AUTHOR";
-    ResourceType[ResourceType["FILM"] = 2] = "FILM";
-    ResourceType[ResourceType["DIRECTOR"] = 3] = "DIRECTOR";
-    ResourceType[ResourceType["PERSON"] = 4] = "PERSON";
-})(ResourceType || (ResourceType = {}));
-const docOne = {
-    uid: 1,
-    resourceType: ResourceType.BOOK,
-    data: { title: "name of the wind" },
-};
-const docTwo = {
-    uid: 10,
-    resourceType: ResourceType.PERSON,
-    data: { title: "luigi" },
-};
-console.log(docOne, docTwo);
+// tuples
+let arr = ["ryu", 25, true];
+arr[0] = false;
+arr[1] = "yoshi";
+arr = [30, false, "yoshi"];
+let tup = ["ryu", 25, true];
+tup[0] = "ken";
+tup[1] = 30;
+// let student: [string, number];
+// student = ["chun-li", 343423];
