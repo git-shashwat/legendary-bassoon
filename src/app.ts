@@ -2,6 +2,7 @@ import { Invoice } from "./classes/Invoice.js";
 import { ListTemplate } from "./classes/ListTemplate.js";
 import { Payment } from "./classes/Payment.js";
 import { HasFormatter } from "./interfaces/HasFormatter.js";
+import { HasProfile } from "./interfaces/HasProfile.js";
 
 const form = document.querySelector(".new-item-form") as HTMLFormElement;
 
@@ -29,5 +30,32 @@ form.addEventListener("submit", (e: Event) => {
     doc = new Payment(t, d, a);
   }
 
-  list.render(doc, h, "start");
+  list.render(doc, h, "end");
 });
+
+// GENERICS
+const addUID = <T extends HasProfile>(obj: T) => {
+  let uid = Math.floor(Math.random() * 100);
+  return { ...obj, uid };
+};
+
+let docOne = addUID({ name: "yoshi", age: 40 });
+// let docTwo = addUID(45);
+console.log(docOne.age);
+
+// with interfaces
+interface Resource<T1, T2> {
+  uid: number;
+  resourceName: string;
+  data: T1;
+  blob: T2;
+}
+
+const docThree: Resource<string[], object> = {
+  uid: 1,
+  resourceName: "person",
+  data: ["shaun", "haun"],
+  blob: { characters: "44hfksa94" },
+};
+
+console.log(docThree);
