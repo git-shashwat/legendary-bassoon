@@ -39,23 +39,30 @@ const addUID = <T extends HasProfile>(obj: T) => {
   return { ...obj, uid };
 };
 
-let docOne = addUID({ name: "yoshi", age: 40 });
-// let docTwo = addUID(45);
-console.log(docOne.age);
-
-// with interfaces
-interface Resource<T1, T2> {
+// ENUMS
+enum ResourceType {
+  BOOK,
+  AUTHOR,
+  FILM,
+  DIRECTOR,
+  PERSON,
+}
+interface Resource<T> {
   uid: number;
-  resourceName: string;
-  data: T1;
-  blob: T2;
+  resourceType: number;
+  data: T;
 }
 
-const docThree: Resource<string[], object> = {
+const docOne: Resource<object> = {
   uid: 1,
-  resourceName: "person",
-  data: ["shaun", "haun"],
-  blob: { characters: "44hfksa94" },
+  resourceType: ResourceType.BOOK,
+  data: { title: "name of the wind" },
 };
 
-console.log(docThree);
+const docTwo: Resource<object> = {
+  uid: 10,
+  resourceType: ResourceType.PERSON,
+  data: { title: "luigi" },
+};
+
+console.log(docOne, docTwo);
